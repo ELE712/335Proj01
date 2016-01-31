@@ -38,7 +38,8 @@ public:
     }
     
     virtual ~CDatabase(){
-        m_allEmp.clear(); //clears vector holding all employees
+        for (CEmployee e : m_allEmp)
+            delete e; //deletes each employee in vector
     }
     
     void AddRecord(const CEmployee emp){
