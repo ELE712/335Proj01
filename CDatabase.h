@@ -1,56 +1,59 @@
 /******************************************************
-** FILE: CDatabase.h
-**
-** ABSTRACT: Holds database class for employees
-**
-**
-**
-** AUTHOR: Ezekiel Zandbergen, 
-**
-** CREATION DATE: 01-27-16
-**
-*******************************************************/
+ ** FILE: CDatabase.h
+ **
+ ** ABSTRACT:
+ ** Design and implementation of CDatabase holding records of CEmployees
+ **
+ **
+ ** AUTHOR: Ezekiel Zandbergen, Matthew Eaton
+ **
+ ** CREATION DATE: 1-27-16
+ **
+ *******************************************************/
 
-#ifndef CDATABASE_H
-#define CDATABASE_H
-
+#ifndef _CDATABASE_H
+#define _CDATABASE_H
 #include <vector>
+using std::vector;
 #include <string>
-#include "CEmployee.h"
-#include "CManager.h"
-
 using std::string;
 
+#include "CManager.h"
 
 class CDatabase{
 private:
-    CDatabase(){} //default constructor not needed
-    
+    CDatabase() {} //default constructor not needed
 protected:
     vector<CEmployee*> m_allEmp; //to hold all employees
-    
 public:
-    CDatabase(vector<CEmployee*> emp_vec){
+    CDatabase(vector<CEmployee*> emp_vec){ 
         //constructs vector from referenced vector
-        for (int i=0; i<allEmp.size(); ++i){
-            AddRecord(emp_vec[i]);
-        }
+        for (auto i : emp_vec)
+            AddRecord(i);
     }
-    
-    virtual ~CDatabase(){
-        for (CEmployee e : m_allEmp)
-            delete e; //deletes each employee in vector
+    CDatabase(const CDatabase &data) {
+        //copy constructor
+        m_allEmp = data.m_allEmp;
     }
-    
-    void AddRecord(const CEmployee emp){
-        m_allEmp.push_back(&emp);
+    virtual ~CDatabase() {
+        //destructor
+        for (auto i : m_allEmp)
+            delete i;
     }
-    
-    void DisplayRecords(){
-        for (int i=0; i<m_allEmp.size(); ++i)
-            allEmp[i]->DisplayEmployee(); //might be allEmp[i].DisplayEmployee()
+    CDatabase& operator=(CDatabase data) {
+        //assignment operator
+        swap(m_allEmp, data.m_allEmp);
+        return *this;
     }
-    
+    void AddRecord(CEmployee* emp) {
+        //adds employee to vector
+        m_allEmp.push_back(emp);
+    }
+    void DisplayRecords() {
+        //display all managers and employees in database
+        for (auto i : m_allEmp)
+            (*i).DisplayEmployee();
+    }
 };
 
 #endif
