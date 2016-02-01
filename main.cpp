@@ -1,16 +1,5 @@
+#include "CDatabase.h"
 
-//testing main, remove before full test
-
-#include <iostream>
-
-int main(){
-    
-    return 0;
-}
-
-
-
-/* Main for final build
 int main(int argc, char** argv) {
     //check default constructors
     tm hiringYear;
@@ -57,4 +46,3 @@ int main(int argc, char** argv) {
     
     return 0;
 }
-*/
