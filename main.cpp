@@ -1,4 +1,7 @@
 #include "CDatabase.h"
+#include <iostream>
+#include <vector>
+using std::cout; using std::vector;
 
 int main(int argc, char** argv) {
     //check default constructors
